@@ -229,6 +229,45 @@ class ControlsWaiter {
 
 
     /**
+     * Exports all saved recipes from local storage as a JSON file.
+     */
+    exportRecipesClick() {
+        if (!this.app.isLocalStorageAvailable()) {
+            this.app.alert(
+                "Your security settings do not allow access to local storage so recipes cannot be exported.",
+                5000
+            );
+            return false;
+        }
+
+        const savedRecipes = localStorage.savedRecipes ?
+            JSON.parse(localStorage.savedRecipes) : [];
+
+        if (savedRecipes.length === 0) {
+            this.app.alert("No saved recipes to export.", 3000);
+            return;
+        }
+
+        const exportData = {
+            exportDate: new Date().toISOString(),
+            recipeCount: savedRecipes.length,
+            recipes: savedRecipes
+        };
+
+        const json = JSON.stringify(exportData, null, 2);
+        const blob = new Blob([json], {type: "application/json"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `cyberchef-recipes-${new Date().toISOString().split("T")[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+
+        this.app.alert(`Exported ${savedRecipes.length} recipe(s) successfully.`, 3000);
+    }
+
+
+    /**
      * Saves the recipe specified in the save textarea to local storage.
      */
     saveButtonClick() {
