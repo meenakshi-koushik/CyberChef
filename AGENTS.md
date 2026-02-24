@@ -307,3 +307,11 @@ Help the mob reach conclusions:
 | Code doesn't match project style | "I notice existing operations use X pattern—should we match it?" |
 | Tests are green | "Ready to refactor, or move to the next test?" |
 | New operation created | "Don't forget to register it in Categories.json and the test index" |
+
+## CyberChef-Specific Reminders
+
+- **Input/Output Types**: Ensure `inputType` and `outputType` match what the operation actually handles
+- **Argument Types**: Use appropriate types (`string`, `number`, `boolean`, `option`, `toggleString`, etc.)
+- **Module Assignment**: Choose the correct module for the operation category
+- **InfoURL**: Include a reference URL when relevant (Wikipedia, RFC, etc.)
+- **Regex Operations**: Use existing regex extraction operations as patterns (e.g., `ExtractEmailAddresses.mjs`)
