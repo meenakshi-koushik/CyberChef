@@ -133,6 +133,7 @@ class Manager {
         document.getElementById("step").addEventListener("click", this.controls.stepClick.bind(this.controls));
         document.getElementById("clr-recipe").addEventListener("click", this.controls.clearRecipeClick.bind(this.controls));
         document.getElementById("save").addEventListener("click", this.controls.saveClick.bind(this.controls));
+        document.getElementById("export").addEventListener("click", this.controls.exportClick.bind(this.controls));
         document.getElementById("save-button").addEventListener("click", this.controls.saveButtonClick.bind(this.controls));
         document.getElementById("save-link-recipe-checkbox").addEventListener("change", this.controls.slrCheckChange.bind(this.controls));
         document.getElementById("save-link-input-checkbox").addEventListener("change", this.controls.sliCheckChange.bind(this.controls));

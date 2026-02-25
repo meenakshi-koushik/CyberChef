@@ -227,41 +227,46 @@ class ControlsWaiter {
         $("#load-modal").modal();
     }
 
+    exportClick() {
+        const recipeStr  = localStorage.getItem("savedRecipes"); // document.querySelector("#save-texts .tab-pane.active textarea").value;
+
+        const fileName = "CyberChefExport.json";
+
+        const blob = new Blob([recipeStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        this.app.alert(`Recipe downloaded as "${fileName}".`, 3000);
+    }
 
     /**
-     * Saves the recipe specified in the save textarea to local storage.
+     * Downloads the recipe JSON as a file.
      */
     saveButtonClick() {
-        if (!this.app.isLocalStorageAvailable()) {
-            this.app.alert(
-                "Your security settings do not allow access to local storage so your recipe cannot be saved.",
-                5000
-            );
-            return false;
-        }
+        const recipeName = Utils.escapeHtml(document.getElementById("save-name").value) || "recipe";
+        const recipeStr  = localStorage.getItem("savedRecipes"); // document.querySelector("#save-texts .tab-pane.active textarea").value;
 
-        const recipeName = Utils.escapeHtml(document.getElementById("save-name").value);
-        const recipeStr  = document.querySelector("#save-texts .tab-pane.active textarea").value;
+        const fileName = recipeName.endsWith(".json") ? recipeName : `${recipeName}.json`;
 
-        if (!recipeName) {
-            this.app.alert("Please enter a recipe name", 3000);
-            return;
-        }
+        const blob = new Blob([recipeStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
 
-        const savedRecipes = localStorage.savedRecipes ?
-            JSON.parse(localStorage.savedRecipes) : [];
-        let recipeId = localStorage.recipeId || 0;
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
 
-        savedRecipes.push({
-            id: ++recipeId,
-            name: recipeName,
-            recipe: recipeStr
-        });
-
-        localStorage.savedRecipes = JSON.stringify(savedRecipes);
-        localStorage.recipeId = recipeId;
-
-        this.app.alert(`Recipe saved as "${recipeName}".`, 3000);
+        this.app.alert(`Recipe downloaded as "${fileName}".`, 3000);
     }
 
 
