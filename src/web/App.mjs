@@ -335,6 +335,7 @@ class App {
             lOptions = JSON.parse(localStorage.options);
         }
         this.manager.options.load(lOptions);
+        console.log(lOptions);
 
         // Load favourites
         this.loadFavourites();
@@ -350,6 +351,7 @@ class App {
         let favourites;
 
         if (this.isLocalStorageAvailable()) {
+            console.log(localStorage.favourites);
             favourites = localStorage?.favourites?.length > 2 ?
                 JSON.parse(localStorage.favourites) :
                 this.dfavourites;
